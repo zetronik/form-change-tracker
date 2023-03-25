@@ -3,15 +3,29 @@
   formGroupTracker
   (formChanged)="formChanged($event)"
   (isChanged)="disabled = !$event"
+  [getValueChange]="true"
 >
   <h5>Name</h5>
   <span class="p-float-label">
-    <input id="name" type="text" pInputText formControlName="name" formControlTracker>
+    <input
+      id="name"
+      type="text"
+      pInputText
+      formControlName="name"
+      formControlTracker
+    >
     <label for="name">Name</label>
 </span>
 <h5>Surname</h5>
   <span class="p-float-label">
-    <input id="surname" type="text" pInputText formControlName="surname" formControlTracker>
+    <input
+      id="surname"
+      type="text"
+      pInputText
+      formControlName="surname"
+      formControlTracker
+      [changeFn]="changeFn"
+    >
     <label for="surname">Surname</label>
 </span>
   <div class="form__footer">

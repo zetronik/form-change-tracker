@@ -1,4 +1,4 @@
-import {Directive, OnDestroy, OnInit} from '@angular/core';
+import {Directive, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormControlName} from "@angular/forms";
 import {Subscription} from "rxjs";
 
@@ -6,6 +6,8 @@ import {Subscription} from "rxjs";
   selector: '[formControlTracker]'
 })
 export class FormControlTracker implements OnInit, OnDestroy {
+
+  @Input() changeFn?: (trueValue: any, value: any) => boolean;
 
   public name!: string | number | null;
   public changed = false;
@@ -21,7 +23,7 @@ export class FormControlTracker implements OnInit, OnDestroy {
     this.trueValue = this.formControlName.value;
 
     this._subscribe = this.formControlName.valueChanges?.subscribe(v => {
-      this.changed = this.trueValue !== v;
+      this.changed = this.changeFn ? this.changeFn(this.trueValue, v) : this.trueValue !== v;
       this.value = {[this.name as string]: v};
     });
   }

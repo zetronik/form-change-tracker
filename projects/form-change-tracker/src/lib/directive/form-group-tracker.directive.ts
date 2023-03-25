@@ -1,8 +1,12 @@
 import {
   ContentChildren,
   Directive,
-  ElementRef, EventEmitter, OnDestroy,
-  OnInit, Output,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
   QueryList,
 } from '@angular/core';
 import {FormGroupDirective} from "@angular/forms";
@@ -13,6 +17,8 @@ import {Subscription} from "rxjs";
   selector: '[formGroupTracker]'
 })
 export class FormGroupTracker implements OnInit, OnDestroy {
+
+  @Input() getValueChange = false;
 
   @Output() formChanged = new EventEmitter<any>();
   @Output() isChanged = new EventEmitter<boolean>();
@@ -31,14 +37,23 @@ export class FormGroupTracker implements OnInit, OnDestroy {
   }
 
   initValueChanged(): void {
-    this._subscribe = this.formGroup.valueChanges?.subscribe(() => {
-      this.isChanged.emit(this.controlTracker.some(control => control.changed));
+    this._subscribe = this.formGroup.valueChanges?.subscribe((v) => {
+      const isChanged = this.controlTracker.some(control => control.changed);
+      let data: any = {};
 
-      this.controlTracker.forEach(control => {
-        if (control.changed) {
-          this.formChanged.emit(control.value);
-        }
-      });
+      if (this.getValueChange) {
+        this.controlTracker.forEach(control => {
+          if (control.changed) {
+            const key = Object.keys(control.value)[0];
+            data[key] = control.value
+          }
+        });
+      } else {
+        data = v;
+      }
+
+      this.formChanged.emit(data);
+      this.isChanged.emit(isChanged);
     });
   }
 

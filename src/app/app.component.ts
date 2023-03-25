@@ -26,6 +26,10 @@ export class AppComponent implements OnInit {
     })
   }
 
+  changeFn(trueValue: any, value: any): boolean {
+    return trueValue !== value;
+  }
+
   formChanged(form: any): void {
     console.log(form);
   }
