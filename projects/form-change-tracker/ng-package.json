@@ -1,0 +1,7 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/form-change-tracker",
+  "lib": {
+    "entryFile": "src/src.ts"
+  }
+}
