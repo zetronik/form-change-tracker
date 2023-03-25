@@ -1,5 +1,41 @@
-.form {
-  &__footer {
-    margin-top: 24px;
+.form-tracker {
+  height: 100vh;
+  display: flex;
+
+  &__form {
+    height: 100%;
+    width: 50%;
+    padding: 24px;
+    box-sizing: border-box;
+    background-color: #1f2d40;
+
+    .form {
+      &__footer {
+        margin-top: 24px;
+      }
+    }
+
+  }
+
+  &__tracker {
+    height: 100%;
+    width: 50%;
+    padding: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    &-value {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 16px;
+      border-radius: 8px;
+      background: #000000;
+      color: #ffffff;
+    }
   }
 }
+
+
+

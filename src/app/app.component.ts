@@ -15,6 +15,9 @@ export class AppComponent implements OnInit {
   form!: FormGroup
   disabled = true;
 
+  changed = false;
+  changeValue?: any
+
   ngOnInit(): void {
     this.form = new FormGroup({
       name: new FormControl(user.name, {
@@ -30,11 +33,16 @@ export class AppComponent implements OnInit {
     return trueValue !== value;
   }
 
-  formChanged(form: any): void {
-    console.log(form);
+  isChanged(changed: boolean): void {
+    this.disabled = !changed;
+    this.changed = changed;
+  }
+
+  formChanged(changeValue: any): void {
+    this.changeValue = changeValue;
   }
 
   submit(): void {
-    console.log(this.form.getRawValue());
+    //
   }
 }

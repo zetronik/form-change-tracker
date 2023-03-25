@@ -45,7 +45,7 @@ export class FormGroupTracker implements OnInit, OnDestroy {
         this.controlTracker.forEach(control => {
           if (control.changed) {
             const key = Object.keys(control.value)[0];
-            data[key] = control.value
+            data[key] = control.value[key];
           }
         });
       } else {

@@ -1,34 +1,51 @@
-<form
-  [formGroup]="form"
-  formGroupTracker
-  (formChanged)="formChanged($event)"
-  (isChanged)="disabled = !$event"
-  [getValueChange]="true"
->
-  <h5>Name</h5>
-  <span class="p-float-label">
-    <input
-      id="name"
-      type="text"
-      pInputText
-      formControlName="name"
-      formControlTracker
+<div class="form-tracker">
+  <div class="form-tracker__form">
+    <form
+      [formGroup]="form"
+      formGroupTracker
+      (formChanged)="formChanged($event)"
+      (isChanged)="isChanged($event)"
+      [getValueChange]="true"
     >
-    <label for="name">Name</label>
-</span>
-<h5>Surname</h5>
-  <span class="p-float-label">
-    <input
-      id="surname"
-      type="text"
-      pInputText
-      formControlName="surname"
-      formControlTracker
-      [changeFn]="changeFn"
-    >
-    <label for="surname">Surname</label>
-</span>
-  <div class="form__footer">
-    <p-button [disabled]="disabled" (onClick)="submit()" label="Submit"></p-button>
+      <div class="p-fluid p-grid">
+        <div class="field col-12">
+          <span class="p-float-label">
+          <input
+            id="name"
+            type="text"
+            pInputText
+            formControlName="name"
+            formControlTracker
+          >
+          <label for="name">Name</label>
+        </span>
+        </div>
+        <div class="field col-12">
+          <span class="p-float-label">
+            <input
+              id="surname"
+              type="text"
+              pInputText
+              formControlName="surname"
+              formControlTracker
+              [changeFn]="changeFn"
+            >
+            <label for="surname">Surname</label>
+          </span>
+        </div>
+      </div>
+
+      <div class="form__footer">
+        <p-button [disabled]="disabled" (onClick)="submit()" label="Submit"></p-button>
+      </div>
+    </form>
   </div>
-</form>
+  <div class="form-tracker__tracker">
+    <h3>Is Changed: {{changed}}</h3>
+    <div class="form-tracker__tracker-value">
+      <pre>{{changeValue | json}}</pre>
+    </div>
+  </div>
+</div>
+
+
