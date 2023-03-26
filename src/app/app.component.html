@@ -5,7 +5,7 @@
       formGroupTracker
       (formChanged)="formChanged($event)"
       (isChanged)="isChanged($event)"
-      [getValueChange]="true"
+      [getValueChange]="getValueChange"
     >
       <div class="p-fluid p-grid">
         <div class="field col-12">
@@ -20,6 +20,7 @@
           <label for="name">Name</label>
         </span>
         </div>
+
         <div class="field col-12">
           <span class="p-float-label">
             <input
@@ -28,10 +29,48 @@
               pInputText
               formControlName="surname"
               formControlTracker
-              [changeFn]="changeFn"
             >
             <label for="surname">Surname</label>
           </span>
+        </div>
+
+        <div class="field col-12">
+        <span class="p-float-label">
+          <textarea
+            id="description"
+            formControlName="description"
+            formControlTracker
+            [rows]="5"
+            [cols]="30"
+            pInputTextarea
+            [autoResize]="true"
+          ></textarea>
+          <label for="description">Description</label>
+        </span>
+        </div>
+
+        <div class="field col-12">
+          <p-checkbox
+            formControlName="admin"
+            formControlTracker
+            label="Admin"
+            [binary]="true"
+          ></p-checkbox>
+        </div>
+
+        <div class="field col-12">
+        <span class="p-float-label">
+          <p-multiSelect
+            formControlName="cities"
+            formControlTracker
+            [changeFn]="changeFn"
+            id="cities"
+            [options]="cities"
+            optionLabel="name"
+            display="chip"
+          ></p-multiSelect>
+          <label for="cities">Cities</label>
+        </span>
         </div>
       </div>
 
@@ -41,6 +80,15 @@
     </form>
   </div>
   <div class="form-tracker__tracker">
+    <div class="p-fluid p-grid">
+      <div class="field col-12">
+        <p-checkbox
+          [(ngModel)]="getValueChange"
+          label="Get Value Change"
+          [binary]="true"
+        ></p-checkbox>
+      </div>
+    </div>
     <h3>Is Changed: {{changed}}</h3>
     <div class="form-tracker__tracker-value">
       <pre>{{changeValue | json}}</pre>

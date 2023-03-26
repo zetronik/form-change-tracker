@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-
-const user = {
-  name: 'Andrey',
-  surname: 'Omelchenko'
-}
+import {citiesMock, userMock} from "./mock-data";
 
 @Component({
   selector: 'app-root',
@@ -12,25 +8,34 @@ const user = {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  form!: FormGroup
-  disabled = true;
+  private user = userMock;
+  public  readonly cities = citiesMock;
 
-  changed = false;
-  changeValue?: any
+  public form!: FormGroup
+  public disabled = true;
+  public getValueChange = false;
+  public changed = false;
+  public changeValue?: any
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      name: new FormControl(user.name, {
+      name: new FormControl(this.user.name, {
         validators: Validators.required,
       }),
-      surname: new FormControl(user.surname, {
+      surname: new FormControl(this.user.surname, {
         validators: Validators.required,
-      })
+      }),
+      description: new FormControl(this.user.description),
+      admin: new FormControl(this.user.admin),
+      cities: new FormControl(this.user.cities),
     })
   }
 
-  changeFn(trueValue: any, value: any): boolean {
-    return trueValue !== value;
+  changeFn(trueValue: any[], value: any[]): boolean {
+    const a = trueValue.filter(t => !value.some(v => v.id === t.id));
+    const b = value.filter(v => !trueValue.some(t => v.id === t.id));
+
+    return !!a.length || !!b.length;
   }
 
   isChanged(changed: boolean): void {
