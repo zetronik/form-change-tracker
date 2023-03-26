@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {citiesMock, userMock} from "./mock-data";
 
 @Component({
@@ -29,6 +29,17 @@ export class AppComponent implements OnInit {
       admin: new FormControl(this.user.admin),
       cities: new FormControl(this.user.cities),
     })
+
+    const access = this.user.access.map(a => new FormGroup({
+      name: new FormControl(a.name, Validators.required),
+      access: new FormControl(a.access)
+    }))
+
+    this.form.addControl('access', new FormArray(access));
+  }
+
+  get accessGroup(): FormGroup[] {
+    return (this.form.get('access') as FormArray).controls as FormGroup[];
   }
 
   changeFn(trueValue: any[], value: any[]): boolean {

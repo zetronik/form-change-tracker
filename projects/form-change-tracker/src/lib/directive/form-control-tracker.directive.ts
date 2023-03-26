@@ -8,6 +8,9 @@ import {Subscription} from "rxjs";
 export class FormControlTracker implements OnInit, OnDestroy {
 
   @Input() changeFn?: (trueValue: any, value: any) => boolean;
+  @Input() isFormArray = false;
+  @Input() arrayName?: string;
+  @Input() arrayIndex?: number;
 
   public name!: string | number | null;
   public changed = false;
@@ -23,7 +26,7 @@ export class FormControlTracker implements OnInit, OnDestroy {
     this.trueValue = this.formControlName.value;
     this._subscribe = this.formControlName.valueChanges?.subscribe(v => {
       this.changed = this.formControlName.valid && this.changeFn ? this.changeFn(this.trueValue, v) : this.trueValue !== v;
-      this.value = {[this.name as string]: v};
+      this.value = v;
     });
   }
 

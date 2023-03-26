@@ -1,7 +1,6 @@
 import {
   ContentChildren,
   Directive,
-  ElementRef,
   EventEmitter,
   Input,
   OnDestroy,
@@ -12,11 +11,15 @@ import {
 import {FormGroupDirective} from "@angular/forms";
 import {FormControlTracker} from "./form-control-tracker.directive";
 import {Subscription} from "rxjs";
+import {FormArrayTracker} from "./form-array-tracker.directive";
 
 @Directive({
   selector: '[formGroupTracker]'
 })
 export class FormGroupTracker implements OnInit, OnDestroy {
+
+  public changed = false;
+  public data: any = {};
 
   @Input() getValueChange = false;
 
@@ -24,11 +27,11 @@ export class FormGroupTracker implements OnInit, OnDestroy {
   @Output() isChanged = new EventEmitter<boolean>();
 
   @ContentChildren(FormControlTracker, {descendants: true}) controlTracker!: QueryList<FormControlTracker>;
+  @ContentChildren(FormArrayTracker, {descendants: true}) controlArrayTracker!: QueryList<FormArrayTracker>;
 
   private _subscribe!: Subscription | undefined;
 
   constructor(
-    private elementRef: ElementRef,
     private formGroup: FormGroupDirective,
   ) { }
 
@@ -38,24 +41,35 @@ export class FormGroupTracker implements OnInit, OnDestroy {
 
   initValueChanged(): void {
     this._subscribe = this.formGroup.valueChanges?.subscribe((v) => {
-      const isChanged = this.controlTracker.some(control => control.changed);
-      let data: any = {};
+      this.changed = this.controlTracker.some(control => control.changed);
+      this.data = {};
 
-      if (isChanged) {
+      if (this.changed) {
         if (this.getValueChange) {
           this.controlTracker.forEach(control => {
-            if (control.changed) {
-              const key = Object.keys(control.value)[0];
-              data[key] = control.value[key];
+            if (!control.isFormArray) {
+              if (control.changed) {
+                if (control.name) {
+                  this.data[control.name] = control.value;
+                }
+              }
             }
           });
+
+          this.controlArrayTracker.forEach(control => {
+            if (control.changed) {
+              if (control.name) {
+                this.data[control.name] = control.value;
+              }
+            }
+          })
         } else {
-          data = v;
+          this.data = v;
         }
       }
 
-      this.formChanged.emit(data);
-      this.isChanged.emit(isChanged);
+      this.formChanged.emit(this.data);
+      this.isChanged.emit(this.changed);
     });
   }
 

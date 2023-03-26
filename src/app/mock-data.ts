@@ -14,6 +14,20 @@ export const userMock = {
       name: "Istanbul",
       code: "IST"
     }
+  ],
+  access: [
+    {
+      name: 'Page 1',
+      access: false
+    },
+    {
+      name: 'Page 2',
+      access: true
+    },
+    {
+      name: 'Page 3',
+      access: false
+    }
   ]
 }
 

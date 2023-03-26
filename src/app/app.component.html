@@ -35,18 +35,18 @@
         </div>
 
         <div class="field col-12">
-        <span class="p-float-label">
-          <textarea
-            id="description"
-            formControlName="description"
-            formControlTracker
-            [rows]="5"
-            [cols]="30"
-            pInputTextarea
-            [autoResize]="true"
-          ></textarea>
-          <label for="description">Description</label>
-        </span>
+          <span class="p-float-label">
+            <textarea
+              id="description"
+              formControlName="description"
+              formControlTracker
+              [rows]="5"
+              [cols]="30"
+              pInputTextarea
+              [autoResize]="true"
+            ></textarea>
+            <label for="description">Description</label>
+          </span>
         </div>
 
         <div class="field col-12">
@@ -72,6 +72,40 @@
           <label for="cities">Cities</label>
         </span>
         </div>
+      </div>
+
+      <div class="p-fluid p-grid" formArrayName="access" formArrayTracker>
+        <ng-container *ngFor="let access of accessGroup; index as i">
+          <ng-container [formGroupName]="i" formGroupTracker>
+            <div class="field col-12" >
+              <span class="p-float-label">
+                <input
+                  id="name{{i}}"
+                  type="text"
+                  pInputText
+                  formControlName="name"
+                  formControlTracker
+                  [isFormArray]="true"
+                  arrayName="access"
+                  [arrayIndex]="i"
+                >
+                <label for="name{{i}}">Name page</label>
+              </span>
+            </div>
+            <div class="field col-12">
+              <p-checkbox
+                formControlName="access"
+                formControlTracker
+                [isFormArray]="true"
+                arrayName="access"
+                [arrayIndex]="i"
+                label="Access"
+                [binary]="true"
+              ></p-checkbox>
+            </div>
+          </ng-container>
+        </ng-container>
+
       </div>
 
       <div class="form__footer">

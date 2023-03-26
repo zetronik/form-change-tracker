@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { FormGroupTracker } from './directive/form-group-tracker.directive';
 import { FormControlTracker } from './directive/form-control-tracker.directive';
+import { FormArrayTracker } from './directive/form-array-tracker.directive';
 
 @NgModule({
   declarations: [
     FormGroupTracker,
-    FormControlTracker
+    FormArrayTracker,
+    FormControlTracker,
   ],
   exports: [
     FormGroupTracker,
-    FormControlTracker
+    FormArrayTracker,
+    FormControlTracker,
   ]
 })
 export class FormChangeTrackerModule { }
