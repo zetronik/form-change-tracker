@@ -4,16 +4,8 @@ export const userMock = {
   description: '',
   admin: false,
   cities: [
-    {
-      id: 1,
-      name: "New York",
-      code: "NY"
-    },
-    {
-      id: 4,
-      name: "Istanbul",
-      code: "IST"
-    }
+    {id: 1, name: 'New York', code: 'ny'},
+    {id: 4, name: 'Istanbul', code: 'ist'},
   ],
   access: [
     {
@@ -32,9 +24,9 @@ export const userMock = {
 }
 
 export const citiesMock = [
-  {id: 1, name: 'New York', code: 'NY'},
-  {id: 2, name: 'Rome', code: 'RM'},
-  {id: 3, name: 'London', code: 'LDN'},
-  {id: 4, name: 'Istanbul', code: 'IST'},
-  {id: 5, name: 'Paris', code: 'PRS'}
+  {id: 1, name: 'New York', code: 'ny'},
+  {id: 2, name: 'Rome', code: 'rm'},
+  {id: 3, name: 'London', code: 'ldm'},
+  {id: 4, name: 'Istanbul', code: 'ist'},
+  {id: 5, name: 'Paris', code: 'prs'}
 ];

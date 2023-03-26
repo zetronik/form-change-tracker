@@ -10,23 +10,25 @@ import {FormChangeTrackerModule} from "../../projects/form-change-tracker/src/li
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {CheckboxModule} from "primeng/checkbox";
 import {MultiSelectModule} from "primeng/multiselect";
+import {DividerModule} from "primeng/divider";
 
 @NgModule({
   declarations: [
     AppComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    FormsModule,
-    InputTextModule,
-    ButtonModule,
-    FormChangeTrackerModule,
-    InputTextareaModule,
-    CheckboxModule,
-    MultiSelectModule,
-  ],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		ReactiveFormsModule,
+		FormsModule,
+		InputTextModule,
+		ButtonModule,
+		FormChangeTrackerModule,
+		InputTextareaModule,
+		CheckboxModule,
+		MultiSelectModule,
+		DividerModule,
+	],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -73,11 +73,11 @@
         </span>
         </div>
       </div>
-
-      <div class="p-fluid p-grid" formArrayName="access" formArrayTracker>
+      <p-divider></p-divider>
+      <div class="p-fluid grid pt-4" formArrayName="access" formArrayTracker>
         <ng-container *ngFor="let access of accessGroup; index as i">
           <ng-container [formGroupName]="i" formGroupTracker>
-            <div class="field col-12" >
+            <div class="field col-6" >
               <span class="p-float-label">
                 <input
                   id="name{{i}}"
@@ -92,7 +92,7 @@
                 <label for="name{{i}}">Name page</label>
               </span>
             </div>
-            <div class="field col-12">
+            <div class="field col-6">
               <p-checkbox
                 formControlName="access"
                 formControlTracker
@@ -105,7 +105,6 @@
             </div>
           </ng-container>
         </ng-container>
-
       </div>
 
       <div class="form__footer">

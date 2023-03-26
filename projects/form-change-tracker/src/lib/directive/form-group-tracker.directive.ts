@@ -73,6 +73,18 @@ export class FormGroupTracker implements OnInit, OnDestroy {
     });
   }
 
+  // private emitControlValueChanges(formGroup: FormGroup | FormArray, formGroupValue: any): void {
+  //   for (const controlName in formGroup.controls) {
+  //     const control = formGroup.get(controlName);
+  //     if (control instanceof FormControl) {
+  //       const newValue = formGroupValue[controlName];
+  //       this.controlValueChange.emit({ controlName, newValue });
+  //     } else if (control instanceof FormGroup || control instanceof FormArray) {
+  //       this.emitControlValueChanges(control, formGroupValue[controlName]);
+  //     }
+  //   }
+  // }
+
   ngOnDestroy(): void {
     this._subscribe?.unsubscribe();
   }
