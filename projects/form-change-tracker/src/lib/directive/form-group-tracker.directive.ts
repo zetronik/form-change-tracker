@@ -70,5 +70,6 @@ export class FormGroupTracker implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.componentDestroyed$.next();
+    this.componentDestroyed$.complete();
   }
 }

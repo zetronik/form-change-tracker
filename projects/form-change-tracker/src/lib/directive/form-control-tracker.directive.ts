@@ -35,5 +35,6 @@ export class FormControlTracker implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.componentDestroyed$.next();
+    this.componentDestroyed$.complete();
   }
 }
