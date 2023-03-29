@@ -2,7 +2,6 @@
   <div class="form-tracker__form">
     <form
       [formGroup]="form"
-      formGroupTracker
       (formChanged)="formChanged($event)"
       (isChanged)="isChanged($event)"
       [getValueChange]="getValueChange"
@@ -15,7 +14,6 @@
             type="text"
             pInputText
             formControlName="name"
-            formControlTracker
           >
           <label for="name">Name</label>
         </span>
@@ -28,7 +26,6 @@
               type="text"
               pInputText
               formControlName="surname"
-              formControlTracker
             >
             <label for="surname">Surname</label>
           </span>
@@ -39,7 +36,6 @@
             <textarea
               id="description"
               formControlName="description"
-              formControlTracker
               [rows]="5"
               [cols]="30"
               pInputTextarea
@@ -52,7 +48,6 @@
         <div class="field col-12">
           <p-checkbox
             formControlName="admin"
-            formControlTracker
             label="Admin"
             [binary]="true"
           ></p-checkbox>
@@ -62,7 +57,6 @@
         <span class="p-float-label">
           <p-multiSelect
             formControlName="cities"
-            formControlTracker
             [changeFn]="changeFn"
             id="cities"
             [options]="cities"
@@ -74,9 +68,9 @@
         </div>
       </div>
       <p-divider></p-divider>
-      <div class="p-fluid grid pt-4" formArrayName="access" formArrayTracker>
+      <div class="p-fluid grid pt-4" formArrayName="access">
         <ng-container *ngFor="let access of accessGroup; index as i">
-          <ng-container [formGroupName]="i" formGroupTracker [getValueChange]="getValueChange">
+          <ng-container [formGroupName]="i">
             <div class="field col-6" >
               <span class="p-float-label">
                 <input
@@ -84,10 +78,7 @@
                   type="text"
                   pInputText
                   formControlName="name"
-                  formControlTracker
                   [isFormArray]="true"
-                  arrayName="access"
-                  [arrayIndex]="i"
                 >
                 <label for="name{{i}}">Name page</label>
               </span>
@@ -95,10 +86,7 @@
             <div class="field col-6">
               <p-checkbox
                 formControlName="access"
-                formControlTracker
                 [isFormArray]="true"
-                arrayName="access"
-                [arrayIndex]="i"
                 label="Access"
                 [binary]="true"
               ></p-checkbox>

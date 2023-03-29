@@ -10,11 +10,12 @@ import {
 } from '@angular/core';
 import {ControlContainer} from "@angular/forms";
 import {FormControlTracker} from "./form-control-tracker.directive";
-import {Subscription} from "rxjs";
+import {Subject} from "rxjs";
 import {FormArrayTracker} from "./form-array-tracker.directive";
+import {takeUntil} from "rxjs/operators";
 
 @Directive({
-  selector: '[formGroupTracker]'
+  selector: '[formGroup], [formGroupName]'
 })
 export class FormGroupTracker implements OnInit, OnDestroy {
 
@@ -30,26 +31,22 @@ export class FormGroupTracker implements OnInit, OnDestroy {
   @ContentChildren(FormControlTracker, {descendants: true}) controlTracker!: QueryList<FormControlTracker>;
   @ContentChildren(FormArrayTracker, {descendants: true}) controlArrayTracker!: QueryList<FormArrayTracker>;
 
-  private _subscribe!: Subscription | undefined;
+  private componentDestroyed$: Subject<void> = new Subject<void>();
 
-  constructor(
-    private formGroup: ControlContainer,
-  ) { }
+  constructor(private formGroup: ControlContainer) {}
 
   ngOnInit(): void {
     this.name = this.formGroup.name;
-    this._subscribe = this.formGroup.valueChanges?.subscribe((v) => {
+    this.formGroup.valueChanges?.pipe(takeUntil(this.componentDestroyed$)).subscribe((v) => {
       this.changed = this.controlTracker.some(control => control.changed);
       this.data = {};
 
       if (this.changed) {
         if (this.getValueChange) {
-          this.controlTracker.forEach(control => {
-            if (!control.isFormArray) {
-              if (control.changed) {
-                if (control.name) {
-                  this.data[control.name] = control.value;
-                }
+          this.controlTracker.filter(control => !control.isFormArray).forEach(control => {
+            if (control.changed) {
+              if (control.name) {
+                this.data[control.name] = control.value;
               }
             }
           });
@@ -72,6 +69,6 @@ export class FormGroupTracker implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._subscribe?.unsubscribe();
+    this.componentDestroyed$.next();
   }
 }

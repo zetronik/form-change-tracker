@@ -1,11 +1,11 @@
 import {ContentChildren, Directive, OnDestroy, OnInit, QueryList} from '@angular/core';
-import {FormControlTracker} from "./form-control-tracker.directive";
-import {Subscription} from "rxjs";
+import {Subject} from "rxjs";
 import {ControlContainer} from "@angular/forms";
 import {FormGroupTracker} from "./form-group-tracker.directive";
+import {takeUntil} from "rxjs/operators";
 
 @Directive({
-  selector: '[formArrayTracker]'
+  selector: '[formArrayName]'
 })
 export class FormArrayTracker implements OnInit, OnDestroy {
 
@@ -15,14 +15,14 @@ export class FormArrayTracker implements OnInit, OnDestroy {
 
   @ContentChildren(FormGroupTracker, {descendants: true}) formTracker!: QueryList<FormGroupTracker>;
 
-  private _subscribe!: Subscription | undefined;
+  private componentDestroyed$: Subject<void> = new Subject<void>();
 
-  constructor(private formArray: ControlContainer) { }
+  constructor(private formArray: ControlContainer) {}
 
   ngOnInit(): void {
     this.name = this.formArray.name;
 
-    this._subscribe = this.formArray.valueChanges?.subscribe((v) => {
+    this.formArray.valueChanges?.pipe(takeUntil(this.componentDestroyed$)).subscribe((v) => {
       this.changed = this.formTracker.some(control => control.changed);
 
       this.value = [];
@@ -33,6 +33,6 @@ export class FormArrayTracker implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._subscribe?.unsubscribe();
+    this.componentDestroyed$.next();
   }
 }
