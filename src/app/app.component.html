@@ -76,7 +76,7 @@
       <p-divider></p-divider>
       <div class="p-fluid grid pt-4" formArrayName="access" formArrayTracker>
         <ng-container *ngFor="let access of accessGroup; index as i">
-          <ng-container [formGroupName]="i" formGroupTracker>
+          <ng-container [formGroupName]="i" formGroupTracker [getValueChange]="getValueChange">
             <div class="field col-6" >
               <span class="p-float-label">
                 <input

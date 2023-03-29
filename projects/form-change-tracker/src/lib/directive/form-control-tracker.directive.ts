@@ -1,5 +1,5 @@
 import {Directive, Input, OnDestroy, OnInit} from '@angular/core';
-import {FormControlName} from "@angular/forms";
+import {FormControlName, NgControl} from "@angular/forms";
 import {Subscription} from "rxjs";
 
 @Directive({
@@ -19,13 +19,13 @@ export class FormControlTracker implements OnInit, OnDestroy {
   private trueValue!: any;
   private _subscribe!: Subscription | undefined;
 
-  constructor(private formControlName: FormControlName) { }
+  constructor(private control: NgControl) { }
 
   ngOnInit(): void {
-    this.name = this.formControlName.name;
-    this.trueValue = this.formControlName.value;
-    this._subscribe = this.formControlName.valueChanges?.subscribe(v => {
-      this.changed = this.formControlName.valid && this.changeFn ? this.changeFn(this.trueValue, v) : this.trueValue !== v;
+    this.name = this.control.name;
+    this.trueValue = this.control.value;
+    this._subscribe = this.control.valueChanges?.subscribe(v => {
+      this.changed = this.control.valid && this.changeFn ? this.changeFn(this.trueValue, v) : this.trueValue !== v;
       this.value = v;
     });
   }
