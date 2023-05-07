@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {citiesMock, userMock} from "./mock-data";
+import {ControlChange} from "../../projects/form-change-tracker/src/lib/model/tracker.model";
 
 @Component({
   selector: 'app-root',
@@ -56,6 +57,10 @@ export class AppComponent implements OnInit {
 
   formChanged(changeValue: any): void {
     this.changeValue = changeValue;
+  }
+
+  controlChanged(value: ControlChange): void {
+    console.log(value);
   }
 
   submit(): void {

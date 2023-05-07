@@ -15,7 +15,7 @@ import {FormArrayTracker} from "./form-array-tracker.directive";
 import {takeUntil} from "rxjs/operators";
 
 @Directive({
-  selector: '[formGroup], [formGroupName]'
+  selector: '[formGroupTracker]'
 })
 export class FormGroupTracker implements OnInit, OnDestroy {
 
